@@ -7,7 +7,7 @@ import Services from './Services';
 import Whyus from './Whyus';
 import Testimonial from './Testimonial';
 import { Link } from 'react-router-dom';
-import ThreeDModel from './ThreeDModel';
+import ThreeDModel from './ThreeDmodel';
 
 export default function Index() {
   useEffect(() => {
