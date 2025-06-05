@@ -13,6 +13,12 @@ import Career from './components/Career';
 import ScrollToTop from './components/Scrolltotop';
 import Modal from './components/Modal';
 import Productmodal from './components/Productmodal';
+import Support from './components/Support';
+import Privacynotice from './components/Privacynotice';
+import Termsofuse from './components/termsofuse';
+import Developmentcenter from './components/Developmentcenter';
+import Privacyrights from './components/privacyrights';
+
 
 
 
@@ -32,6 +38,11 @@ export default function App() {
           <Route path="/career" element={<Career/>}/>
           <Route path="/modal" element={<Modal/>}/>
           <Route path="/productmodal" element={<Productmodal/>}/>
+          <Route path="/support" element={<Support/>}/>
+          <Route path="/privacynotice" element={<Privacynotice/>}/>
+          <Route path="/termsofuse" element={<Termsofuse/>}/>
+          <Route path="/developmentcenter" element={<Developmentcenter/>}/>
+          <Route path="/privacyrights" element={<Privacyrights/>}/>
           
        
           

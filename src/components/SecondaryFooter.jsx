@@ -88,13 +88,13 @@ const Footer = () => {
           <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
           <ul className="space-y-2 text-sm text-gray-300">
             {[
-              { name: "Archphaze Development Center", to: "/Aboutus" },
-              { name: "Privacy Notice", to: "/Contactus" },
-              { name: "Your Privacy Rights", to: "/Services" },
+              { name: "Archphaze Development Center", to: "/developmentcenter" },
+              { name: "Privacy Notice", to: "/privacynotice" },
+              { name: "Your Privacy Rights", to: "/privacyrights" },
               { name: "Cookie Preferences", to: "/Testimonial" },
-              { name: "Terms of Use", to: "/Career" },
-              { name: "Support", to: "/Career" },
-              { name: "Contact Us", to: "/Career" }
+              { name: "Terms of Use", to: "/termsofuse" },
+              { name: "Support", to: "/support" },
+              { name: "Contact Us", to: "/Contactus" }
             ].map(({ name, to }, i) => (
               <li key={i}>
                 <Link
