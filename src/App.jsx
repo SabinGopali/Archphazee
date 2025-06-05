@@ -15,7 +15,7 @@ import Modal from './components/Modal';
 import Productmodal from './components/Productmodal';
 import Support from './components/Support';
 import Privacynotice from './components/Privacynotice';
-import Termsofuse from './components/termsofuse';
+import Termsofuse from './components/Termsofuse';
 import Developmentcenter from './components/Developmentcenter';
 import Privacyrights from './components/privacyrights';
 
