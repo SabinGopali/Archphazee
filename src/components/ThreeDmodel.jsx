@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Bounds, Center } from '@react-three/drei';
 
@@ -7,19 +7,41 @@ function Model({ path }) {
 
   return (
     <Center>
-      {/* Rotate model slightly upward (around X axis) */}
       <primitive object={scene} rotation={[-0.2, 0, 0]} />
     </Center>
   );
 }
 
 export default function ThreeDModel({ modelPath }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth < 768); // you can adjust breakpoint as needed
+    }
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
-    <div className="w-full h-[60vh] sm:h-[500px] md:h-[600px] lg:h-[700px] xl:h-[800px]">
+    <div
+      className="w-full h-[60vh] sm:h-[500px] md:h-[600px] lg:h-[700px] xl:h-[800px]"
+      style={{
+        // On mobile disable pointer events to make canvas untouchable (like image)
+        pointerEvents: isMobile ? 'none' : 'auto',
+        maxWidth: '730px',
+        maxHeight: '600px',
+      }}
+    >
       <Canvas
-        // Lower Y position from 2 to 1.2 for more upward facing camera
         camera={{ position: [0, 1.2, 6], fov: 45 }}
-        style={{ width: '730px', height: '600px', background: 'transparent' }}
+        style={{
+          width: '100%',
+          height: '100%',
+          background: 'transparent',
+        }}
       >
         <ambientLight intensity={0.9} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
@@ -30,13 +52,16 @@ export default function ThreeDModel({ modelPath }) {
           </Bounds>
         </Suspense>
 
-        <OrbitControls
-          enablePan={true}
-          enableZoom={true}
-          enableRotate={true}
-          maxPolarAngle={Math.PI}
-          minPolarAngle={0}
-        />
+        {/* Only enable OrbitControls if not mobile */}
+        {!isMobile && (
+          <OrbitControls
+            enablePan={true}
+            enableZoom={true}
+            enableRotate={true}
+            maxPolarAngle={Math.PI}
+            minPolarAngle={0}
+          />
+        )}
       </Canvas>
     </div>
   );

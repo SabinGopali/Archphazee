@@ -26,21 +26,21 @@ export default function Index() {
       </Helmet>
 
       {/* Hero Section */}
-      <div className="pt-0 bg-white flex items-center">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-15 px-6 md:px-12 xl:px-20 pt-4 pb-12">
+      <div className="bg-white pt-2 md:pt-4 pb-12 md:pb-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-20 flex flex-col-reverse md:grid md:grid-cols-2 gap-12 items-center">
           
           {/* Text Section */}
-          <div className="flex flex-col justify-center space-y-10 text-center md:text-left" data-aos="fade-right">
-            <p className="text-red-500 uppercase font-medium tracking-wide">
+          <div className="text-center md:text-left space-y-4" data-aos="fade-right">
+            <p className="text-red-500 uppercase font-semibold tracking-wider text-sm sm:text-base mb-1">
               BUILD.HOST.LAUNCH
             </p>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-gray-900">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-snug">
               Innovative <span className="text-red-500">Tech Solutions</span> for Your Business
             </h1>
 
             <ReactTyped
-              className="text-gray-600 text-base sm:text-lg"
+              className="text-gray-600 text-base sm:text-lg md:text-xl"
               strings={['Empowering startups and enterprises with modern web and mobile technologies. Let’s create something impactful together.']}
               typeSpeed={40}
             />
@@ -48,8 +48,8 @@ export default function Index() {
             <div>
               <Link to="/Contactus">
                 <button
-                  className="px-6 py-3 font-semibold rounded-lg bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-lg
-                    hover:from-pink-600 hover:to-red-500 hover:scale-105 hover:shadow-2xl transition transform duration-300 ease-in-out cursor-pointer"
+                  className="mt-6 px-6 py-3 text-sm sm:text-base font-semibold rounded-lg bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-lg
+                  hover:from-pink-600 hover:to-red-500 hover:scale-105 hover:shadow-2xl transition-transform duration-300 ease-in-out"
                 >
                   Build With Us
                 </button>
@@ -58,7 +58,7 @@ export default function Index() {
           </div>
 
           {/* 3D Model Section */}
-          <div className="flex justify-center items-center h-[600px] w-full" data-aos="fade-left">
+          <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex justify-center items-center" data-aos="fade-left">
             <div className="w-full h-full">
               <ThreeDModel modelPath="/office.gltf" />
             </div>
@@ -67,7 +67,10 @@ export default function Index() {
       </div>
 
       {/* Other Sections */}
-      <Services />
+      
+        <Services />
+  
+      
       <Whyus />
       <Testimonial />
     </>
