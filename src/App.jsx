@@ -2,9 +2,9 @@
   import Navbar from './components/Navbar';
   import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
   // import Index from './components/Index';
-  import Services from './components/Services';
-  import Whyus from './components/Whyus';
-  import Testimonial from './components/Testimonial';
+  // import Services from './components/Services';
+  // import Whyus from './components/Whyus';
+  // import Testimonial from './components/Testimonial';
   // import Aboutus from './components/Aboutus';
   import Contactus from './components/Contactus';
   import Footer from './components/Footer';
@@ -24,6 +24,10 @@
 
   const Index = lazy(() => import('./components/Index'));
   const Aboutus = lazy(() => import('./components/Aboutus'));
+  const Services = lazy(() => import('./Services'));
+  const Whyus = lazy(() => import('./Whyus'));
+  const Testimonial = lazy(() => import('./Testimonial'));
+
 
   export default function App() {
     return (
