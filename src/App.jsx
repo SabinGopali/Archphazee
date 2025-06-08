@@ -24,9 +24,9 @@
 
   const Index = lazy(() => import('./components/Index'));
   const Aboutus = lazy(() => import('./components/Aboutus'));
-  const Services = lazy(() => import('./Services'));
-  const Whyus = lazy(() => import('./Whyus'));
-  const Testimonial = lazy(() => import('./Testimonial'));
+  const Services = lazy(() => import('./components/Services'));
+  const Whyus = lazy(() => import('./components/Whyus'));
+  const Testimonial = lazy(() => import('./components/Testimonial'));
 
 
   export default function App() {
