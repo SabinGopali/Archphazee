@@ -4,7 +4,7 @@ import 'aos/dist/aos.css';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
 import image from '../assets/homescreen.webp';
-import Whyus from './Whyus';
+
 
 export default function Aboutus() {
   const [activeTab, setActiveTab] = useState('about');

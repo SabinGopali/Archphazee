@@ -1,8 +1,7 @@
 import React from "react";
 import img from "../assets/homescreen.webp";
 import { Helmet } from "react-helmet"; // ← Add this
-import { Link } from "react-router-dom";
-import { SparkleIcon } from "lucide-react";
+
 
 const JoinOurTeam = () => {
   return (

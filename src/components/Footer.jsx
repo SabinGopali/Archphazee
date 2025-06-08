@@ -4,9 +4,7 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   const year = new Date().getFullYear();
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  
 
   return (
     <footer className="bg-black text-gray-300 py-8 px-4 sm:px-6 relative border-t border-white w-full">

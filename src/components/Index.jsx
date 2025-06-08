@@ -7,7 +7,7 @@ import Services from './Services';
 import Whyus from './Whyus';
 import Testimonial from './Testimonial';
 import { Link } from 'react-router-dom';
-import ThreeDModel from './ThreeDmodel';
+// import ThreeDModel from './ThreeDmodel';
 
 export default function Index() {
   useEffect(() => {
@@ -58,11 +58,11 @@ export default function Index() {
           </div>
 
           {/* 3D Model Section */}
-          <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex justify-center items-center" data-aos="fade-left">
+          {/* <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex justify-center items-center" data-aos="fade-left">
             <div className="w-full h-full">
               <ThreeDModel modelPath="/office.gltf" />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
