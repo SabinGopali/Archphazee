@@ -2,6 +2,9 @@ import React, { Suspense, useState, useEffect, useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Bounds, Center } from '@react-three/drei';
 
+// ✅ Preload outside component (only once)
+useGLTF.preload('/models/your-default-model.glb'); // Replace with a default path if needed
+
 function Model({ path }) {
   const { scene } = useGLTF(path);
   return (
@@ -12,25 +15,24 @@ function Model({ path }) {
 }
 
 export default function ThreeDModel({ modelPath }) {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
 
-  // Preload model outside of component or inside useEffect
-  useGLTF.preload(modelPath);
-
+  // ✅ Debounced resize handler
   useEffect(() => {
-    let timeoutId;
-    function handleResize() {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        setIsMobile(window.innerWidth < 768);
-      }, 150);
-    }
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener('resize', handleResize);
+    const debounce = (fn, delay) => {
+      let timeout;
+      return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => fn(...args), delay);
+      };
     };
+
+    const handleResize = debounce(() => {
+      setIsMobile(window.innerWidth < 768);
+    }, 150);
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const cameraSettings = useMemo(() => ({ position: [0, 1.2, 6], fov: 45 }), []);
@@ -45,7 +47,13 @@ export default function ThreeDModel({ modelPath }) {
         maxHeight: '600px',
       }}
     >
-      <Canvas camera={cameraSettings} style={canvasStyle} shadows={false}>
+      <Canvas
+        camera={cameraSettings}
+        style={canvasStyle}
+        shadows={false}
+        dpr={[1, 1.5]}          // ✅ Limits pixel density (performance gain)
+        frameloop="demand"     // ✅ Prevents continuous render loop
+      >
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} intensity={0.8} />
 
@@ -68,3 +76,6 @@ export default function ThreeDModel({ modelPath }) {
     </div>
   );
 }
+
+
+
