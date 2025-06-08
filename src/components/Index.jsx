@@ -1,4 +1,4 @@
-import React, { useEffect, lazy, Suspense } from 'react';
+import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { ReactTyped } from "react-typed";
@@ -7,10 +7,7 @@ import Services from './Services';
 import Whyus from './Whyus';
 import Testimonial from './Testimonial';
 import { Link } from 'react-router-dom';
-import Preloader from './Preloader';
-
-// ✅ Lazy load the 3D model
-const ThreeDModel = lazy(() => import('./ThreeDmodel'));
+import ThreeDModel from './ThreeDmodel';
 
 export default function Index() {
   useEffect(() => {
@@ -31,7 +28,7 @@ export default function Index() {
       {/* Hero Section */}
       <div className="bg-white pt-2 md:pt-4 pb-12 md:pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-20 flex flex-col-reverse md:grid md:grid-cols-2 gap-12 items-center">
-
+          
           {/* Text Section */}
           <div className="text-center md:text-left space-y-4" data-aos="fade-right">
             <p className="text-red-500 uppercase font-semibold tracking-wider text-sm sm:text-base mb-1">
@@ -52,7 +49,7 @@ export default function Index() {
               <Link to="/Contactus">
                 <button
                   className="mt-6 px-6 py-3 text-sm sm:text-base font-semibold rounded-lg bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-lg
-                    hover:from-pink-600 hover:to-red-500 hover:scale-105 hover:shadow-2xl transition-transform duration-300 ease-in-out"
+                  hover:from-pink-600 hover:to-red-500 hover:scale-105 hover:shadow-2xl transition-transform duration-300 ease-in-out"
                 >
                   Build With Us
                 </button>
@@ -63,16 +60,17 @@ export default function Index() {
           {/* 3D Model Section */}
           <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex justify-center items-center" data-aos="fade-left">
             <div className="w-full h-full">
-              <Suspense fallback={<Preloader />}>
-                <ThreeDModel modelPath="/office.gltf" />
-              </Suspense>
+              <ThreeDModel modelPath="/office.gltf" />
             </div>
           </div>
         </div>
       </div>
 
       {/* Other Sections */}
-      <Services />
+      
+        <Services />
+  
+      
       <Whyus />
       <Testimonial />
     </>
