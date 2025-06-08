@@ -1,9 +1,10 @@
+// components/ThreeDModel.jsx
 import React, { Suspense, useState, useEffect, useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Bounds, Center } from '@react-three/drei';
 
-// ✅ Preload outside component (only once)
-useGLTF.preload('/models/your-default-model.glb'); // Replace with a default path if needed
+// Optional: preload a default model
+useGLTF.preload('/models/your-default-model.glb');
 
 function Model({ path }) {
   const { scene } = useGLTF(path);
@@ -17,7 +18,6 @@ function Model({ path }) {
 export default function ThreeDModel({ modelPath }) {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
 
-  // ✅ Debounced resize handler
   useEffect(() => {
     const debounce = (fn, delay) => {
       let timeout;
@@ -26,11 +26,9 @@ export default function ThreeDModel({ modelPath }) {
         timeout = setTimeout(() => fn(...args), delay);
       };
     };
-
     const handleResize = debounce(() => {
       setIsMobile(window.innerWidth < 768);
     }, 150);
-
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -51,18 +49,16 @@ export default function ThreeDModel({ modelPath }) {
         camera={cameraSettings}
         style={canvasStyle}
         shadows={false}
-        dpr={[1, 1.5]}          // ✅ Limits pixel density (performance gain)
-        frameloop="demand"     // ✅ Prevents continuous render loop
+        dpr={[1, 1.5]}
+        frameloop="demand"
       >
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} intensity={0.8} />
-
         <Suspense fallback={null}>
           <Bounds fit margin={1}>
             <Model path={modelPath} />
           </Bounds>
         </Suspense>
-
         {!isMobile && (
           <OrbitControls
             enablePan={true}
@@ -76,6 +72,3 @@ export default function ThreeDModel({ modelPath }) {
     </div>
   );
 }
-
-
-
