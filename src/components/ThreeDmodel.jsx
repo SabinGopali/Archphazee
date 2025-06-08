@@ -56,7 +56,7 @@ export default function ThreeDModel({ modelPath }) {
         {!isMobile && (
           <OrbitControls
             enablePan={true}
-            enableZoom={true}
+            enableZoom={false}
             enableRotate={true}
             maxPolarAngle={Math.PI}
             minPolarAngle={0}
