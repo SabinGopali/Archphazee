@@ -3,8 +3,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
-import image from '../assets/homescreen.webp';
-
+import image from '../assets/aboutusimg.jpg';
 
 export default function Aboutus() {
   const [activeTab, setActiveTab] = useState('about');
@@ -51,27 +50,27 @@ export default function Aboutus() {
       <div>
         {/* Title */}
         <motion.h2
-          className="text-4xl sm:text-5xl font-semibold text-gray-800 mb-2"
-          data-aos="fade-down"
+          className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-2"
+          data-aos="fade-up"
         >
           About <span className="text-red-500">US</span>
         </motion.h2>
 
         <motion.h3
           className="text-xl sm:text-2xl text-gray-600 font-medium mb-6"
-          data-aos="fade-down"
+          data-aos="fade-up"
           data-aos-delay="100"
         >
           Archphaze Technologies Pvt. Ltd.
         </motion.h3>
 
         {/* Tabs */}
-        <div className="flex space-x-6 border-b border-gray-300 mb-6 text-lg font-medium">
+        <div className="flex space-x-6 border-b border-gray-300 mb-8 text-lg font-medium">
           {['about', 'mission', 'vision'].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`pb-2 ${
+              className={`pb-2 transition-all ${
                 activeTab === tab
                   ? 'text-red-500 border-b-2 border-red-500'
                   : 'text-gray-700 hover:text-red-500'
@@ -86,15 +85,11 @@ export default function Aboutus() {
           ))}
         </div>
 
-        {/* Grid Section for Content and Image */}
-        <div className="grid grid-cols-1 md:grid-cols-2 items-start gap-10">
+        {/* Content & Image Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 items-start gap-12">
           {/* Text Content */}
           <motion.div
-            data-aos="fade-right"
-            key={activeTab}
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            
           >
             <p className="text-red-500 font-semibold mb-2">{content[activeTab].title}</p>
             {content[activeTab].paragraphs.map((para, index) => (
@@ -110,16 +105,15 @@ export default function Aboutus() {
           {/* Image Section */}
           <motion.div
             className="flex justify-center"
-            data-aos="fade-left"
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            data-aos="fade-up"
+        
           >
-            <div className="rounded-xl overflow-hidden shadow-lg">
+            <div className="max-w-lg w-full">
               <img
                 src={image}
                 alt="About Company"
-                className="w-full object-cover rounded-xl transition-transform duration-500 hover:scale-105"
+                className="w-full object-contain rounded-3xl transition-transform duration-500 hover:scale-105"
+                style={{ backgroundColor: 'transparent' }}
               />
             </div>
           </motion.div>

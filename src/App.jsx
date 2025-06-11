@@ -2,9 +2,9 @@
   import Navbar from './components/Navbar';
   import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
   // import Index from './components/Index';
-  // import Services from './components/Services';
-  // import Whyus from './components/Whyus';
-  // import Testimonial from './components/Testimonial';
+  import Services from './components/Services';
+  import Whyus from './components/Whyus';
+  import Testimonial from './components/Testimonial';
   // import Aboutus from './components/Aboutus';
   import Contactus from './components/Contactus';
   import Footer from './components/Footer';
@@ -19,14 +19,15 @@
   import Developmentcenter from './components/Developmentcenter';
   import Privacyrights from './components/privacyrights';
   import Preloader from './components/Preloader';
+  import Collection from './components/Collection';
+  import Productdetail from './components/Productdetail';
+import Cart from './components/Cart';
 
 
 
   const Index = lazy(() => import('./components/Index'));
   const Aboutus = lazy(() => import('./components/Aboutus'));
-  const Services = lazy(() => import('./components/Services'));
-  const Whyus = lazy(() => import('./components/Whyus'));
-  const Testimonial = lazy(() => import('./components/Testimonial'));
+  
 
 
   export default function App() {
@@ -51,6 +52,9 @@
             <Route path="/termsofuse" element={<Termsofuse/>}/>
             <Route path="/developmentcenter" element={<Developmentcenter/>}/>
             <Route path="/privacyrights" element={<Privacyrights/>}/>
+            <Route path="/collection" element={<Collection/>}/>
+            <Route path="/productdetail" element={<Productdetail/>}/>
+            <Route path="/cart" element={<Cart/>}/>
           </Routes>
           
           <SecondaryFooter/>

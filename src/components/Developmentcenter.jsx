@@ -28,7 +28,7 @@ export default function Developmentcenter() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 py-16 px-6">
       <div className="max-w-5xl mx-auto text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">
           Archphaze <span className="text-red-500">Development Center</span>
         </h1>
         <p className="text-gray-600 mt-4 text-lg">
@@ -59,7 +59,7 @@ export default function Developmentcenter() {
         <p className="text-sm text-gray-500 mb-2">Need technical support?</p>
         <a
           href="mailto:devsupport@archphaze.com"
-          className="inline-block px-6 py-2 bg-black text-white rounded-md hover:bg-red-600 transition"
+          className="inline-block px-6 py-2 bg-white text-black border border-black rounded-md hover:bg-black hover:text-white transition"
         >
           Contact Developer Support
         </a>

@@ -51,7 +51,7 @@ export default function ContactUs() {
   return (
     <div className="w-full px-4 sm:px-6 lg:px-8 py-16 bg-white">
       <div className="text-center mb-12">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
           If You Have Any <span className="text-red-500">Query</span>, Please <br className="hidden sm:block" />
           <span className="text-red-500">Contact Us</span>
         </h2>

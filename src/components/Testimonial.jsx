@@ -2,15 +2,18 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FaLinkedin, FaTwitter } from 'react-icons/fa';
 import { Helmet } from 'react-helmet';
-import logo from '../assets/homescreen.webp'; // Replace with actual headshots if available
-
+import person1 from '../assets/person1.png'; 
+import person2 from '../assets/person2.png'; 
+import person3 from '../assets/person3.png'; 
+import AOS from "aos";
+import "aos/dist/aos.css";
 const teamMembers = [
   {
     id: 1,
     name: 'Kapil Gautam',
     position: 'Chief Executive Officer',
     bio: 'Leading the company with a vision for innovation and growth.',
-    img: logo,
+    img: person1,
     delay: 0.2,
     linkedin: 'https://linkedin.com/in/kapilgautam',
     twitter: 'https://twitter.com/kapilgautam',
@@ -20,7 +23,7 @@ const teamMembers = [
     name: 'Sulav Kadel',
     position: 'Lead Developer',
     bio: 'Architecting scalable and robust technology solutions.',
-    img: logo,
+    img: person2,
     delay: 0.4,
     linkedin: 'https://linkedin.com/in/sulavkadel',
     twitter: 'https://twitter.com/sulavkadel',
@@ -30,7 +33,7 @@ const teamMembers = [
     name: 'Ayush Pyakurel',
     position: 'Project Manager',
     bio: 'Bridging the gap between users and developers with clarity.',
-    img: logo,
+    img: person3,
     delay: 0.6,
     linkedin: 'https://linkedin.com/in/ayushpyakurel',
     twitter: 'https://twitter.com/ayushpyakurel',
@@ -50,10 +53,10 @@ export default function Testimonial() {
       </Helmet>
 
       <div className="text-center mb-16">
-        <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 uppercase">
+        <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 uppercase" data-aos="fade-up">
           Meet <span className="text-red-500">Our Team</span>
         </h2>
-        <p className="mt-4 text-gray-500 max-w-2xl mx-auto">
+        <p className="mt-4 text-gray-500 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
           The passionate minds building powerful digital experiences.
         </p>
       </div>

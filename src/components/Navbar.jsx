@@ -96,8 +96,18 @@ export default function Navbar() {
           </ul>
         </div>
 
-        {/* Right Button */}
-        <div className="hidden md:block">
+        {/* Right Button with Fancy Cart (No border) */}
+        <div className="hidden md:flex items-center space-x-4">
+          <Link to="/cart" aria-label="productmodal">
+              <button
+                className="text-black text-2xl cursor-pointer hover:text-white focus:outline-none
+                 mx-3 px-2 py-1 rounded transition-transform duration-300 transform hover:scale-110"
+                type="button"
+              >
+                🛒
+              </button>
+
+          </Link>
           <Link to="/Contactus">
             <button className="px-4 md:px-5 py-1.5 md:py-2 border border-black rounded-md hover:bg-black hover:text-white transition cursor-pointer text-sm md:text-base">
               Build With Us

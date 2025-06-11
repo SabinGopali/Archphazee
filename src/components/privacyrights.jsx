@@ -4,7 +4,7 @@ const Privacyrights = () => {
   return (
     <div className="min-h-screen bg-white text-white py-16 px-6">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-4xl font-bold text-center text-white uppercase mb-10 tracking-wide">
+        <h1 className="text-4xl font-extrabold text-center text-white uppercase mb-10 tracking-wide">
           Your <span className="text-black">Privacy <span className="text-red-500">Rights</span> </span>
         </h1>
 

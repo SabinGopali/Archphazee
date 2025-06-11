@@ -5,10 +5,10 @@ import { Helmet } from 'react-helmet';
 import Modal from './Modal'; // Adjust path if needed
 
 // Images
-import WebDevImg from '../assets/homescreen.webp';
-import MobileAppImg from '../assets/homescreen.webp';
-import UIUXImg from '../assets/homescreen.webp';
-import ApiImg from '../assets/homescreen.webp';
+import WebDevImg from '../assets/webimg.jpg';
+import MobileAppImg from '../assets/mobimg.jpg';
+import UIUXImg from '../assets/uiimg.jpg';
+import ApiImg from '../assets/apiimg.jpg';
 
 const data = [
   {
@@ -81,7 +81,7 @@ export default function Services() {
       <div className="max-w-screen-xl mx-auto">
         {/* Header */}
         <div className="text-center max-w-4xl mx-auto mb-12">
-          <h1 className="text-4xl sm:text-5xl font-bold text-black" data-aos="zoom-out">
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-black" data-aos="zoom-out">
             ARCH <span className="text-red-500">SERVICES</span>
           </h1>
           <p className="text-lg text-gray-700 mt-4" data-aos="zoom-in">

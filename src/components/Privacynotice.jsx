@@ -45,7 +45,7 @@ export default function Privacynotice() {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4">
       <div className="w-full max-w-5xl bg-white rounded-xl shadow-2xl border border-gray-200 p-8 space-y-10">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-black uppercase">Privacy <span className="text-red-500">Notice</span>  Help <span className="text-red-500">Center</span> </h1>
+          <h1 className="text-4xl font-extrabold text-black uppercase">Privacy <span className="text-red-500">Notice</span>  Help <span className="text-red-500">Center</span> </h1>
           <p className="text-gray-600 mt-2">Your privacy matters — find answers to common privacy-related questions.</p>
         </div>
 

@@ -3,7 +3,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { ReactTyped } from "react-typed";
 import { Helmet } from 'react-helmet';
-import Services from './Services';
+import Services from '../components/Services';
 import Whyus from './Whyus';
 import Testimonial from './Testimonial';
 import { Link } from 'react-router-dom';
@@ -35,7 +35,7 @@ export default function Index() {
               BUILD.HOST.LAUNCH
             </p>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-snug">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-snug">
               Innovative <span className="text-red-500">Tech Solutions</span> for Your Business
             </h1>
 
