@@ -1,16 +1,16 @@
+// components/ThreeDModel.jsx
 import React, { Suspense, useState, useEffect, useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Bounds, Center } from '@react-three/drei';
 
-// Preload your model for performance
+// Optional: preload a default model
 useGLTF.preload('/models/your-default-model.glb');
 
 function Model({ path }) {
   const { scene } = useGLTF(path);
   return (
     <Center>
-      {/* Tilted model for better 3D perspective */}
-      <primitive object={scene} rotation={[-0.2, Math.PI / 6, 0]} />
+      <primitive object={scene} rotation={[-0.2, 0, 0]} />
     </Center>
   );
 }
@@ -33,15 +33,8 @@ export default function ThreeDModel({ modelPath }) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const cameraSettings = useMemo(
-    () => ({ position: [0, 1.2, 6], fov: 45 }),
-    []
-  );
-
-  const canvasStyle = useMemo(
-    () => ({ width: '100%', height: '100%', background: 'transparent' }),
-    []
-  );
+  const cameraSettings = useMemo(() => ({ position: [0, 1.2, 6], fov: 45 }), []);
+  const canvasStyle = useMemo(() => ({ width: '100%', height: '100%', background: 'transparent' }), []);
 
   return (
     <div
@@ -59,17 +52,13 @@ export default function ThreeDModel({ modelPath }) {
         dpr={[1, 1.5]}
         frameloop="demand"
       >
-        {/* Lighting to enhance 3D appearance */}
-        <ambientLight intensity={0.6} />
-        <directionalLight position={[5, 5, 5]} intensity={1} />
-        <directionalLight position={[-2, -2, 3]} intensity={0.4} />
-
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[5, 5, 5]} intensity={0.8} />
         <Suspense fallback={null}>
           <Bounds fit margin={1}>
             <Model path={modelPath} />
           </Bounds>
         </Suspense>
-
         {!isMobile && (
           <OrbitControls
             enablePan={true}
@@ -77,7 +66,6 @@ export default function ThreeDModel({ modelPath }) {
             enableRotate={true}
             maxPolarAngle={Math.PI}
             minPolarAngle={0}
-            rotateSpeed={0.6}
           />
         )}
       </Canvas>
