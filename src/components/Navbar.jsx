@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import logo from '/archphaze.webp';
+import logo from '/logo.webp';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -16,39 +16,39 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white sticky top-0 z-50 w-full border-b border-gray-200 shadow-sm">
-      <div className="max-w-[1440px] w-full mx-auto flex flex-wrap items-center justify-between px-4 md:px-8 lg:px-16 py-2">
+    <nav className="bg-white sticky top-0 z-50 w-full h-24 border-b border-gray-200 shadow-sm">
+      <div className="max-w-[1440px] w-full mx-auto flex flex-wrap items-center justify-between px-4 md:px-8 lg:px-16 h-full">
 
         {/* Logo */}
-        <NavLink to="/" className="flex items-center space-x-3 shrink-0">
+        <NavLink to="/" className=" mt-3 flex items-center space-x-3 shrink-0">
           <img
             src={logo}
-            width={120}
-            height={96}
+            width={200}
+            height={140}
             alt="Logo"
             loading="eager"
             decoding="async"
             fetchPriority="high"
-            className="object-contain"
+            className="object-contain h-20 w-auto"
             style={{ maxWidth: 'none' }}
           />
         </NavLink>
 
-        {/* Hamburger */}
+        {/* Hamburger (Mobile) */}
         <button
           aria-label="buildwithus"
           onClick={toggleMobileMenu}
           className="md:hidden text-gray-700 p-3 rounded focus:outline-none focus:ring-2 focus:ring-gray-200"
           type="button"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
 
-        {/* Center Links (Tablet & Desktop) */}
+        {/* Center Nav Items */}
         <div className="hidden md:flex items-center justify-center flex-1">
-          <ul className="flex flex-wrap space-x-2 md:space-x-4 lg:space-x-8 bg-[#f7f8fc] px-3 md:px-4 lg:px-6 py-2 md:py-2.5 lg:py-3 rounded-xl font-medium text-gray-600 text-sm md:text-base">
+          <ul className="flex flex-wrap space-x-4 md:space-x-6 lg:space-x-10 bg-[#f7f8fc] px-4 md:px-6 lg:px-8 py-3 md:py-3.5 lg:py-4 rounded-xl font-medium text-gray-600 text-sm md:text-base">
             <li>
               <NavLink to="/" className={({ isActive }) => isActive ? 'text-black font-semibold' : 'hover:text-black'}>
                 Home
@@ -96,17 +96,17 @@ export default function Navbar() {
           </ul>
         </div>
 
-        {/* Right Button with Fancy Cart (No border) */}
-        <div className="hidden md:flex items-center space-x-4">
+        {/* Right Icons & Button */}
+        <div className="hidden md:flex items-center space-x-6">
+          <Link to="/Login" aria-label="login">
+            <button className="text-black text-2xl cursor-pointer hover:text-white focus:outline-none mx-3 px-2 py-1 rounded transition-transform duration-300 transform hover:scale-110" type="button">
+              🔐
+            </button>
+          </Link>
           <Link to="/cart" aria-label="productmodal">
-              <button
-                className="text-black text-2xl cursor-pointer hover:text-white focus:outline-none
-                 mx-3 px-2 py-1 rounded transition-transform duration-300 transform hover:scale-110"
-                type="button"
-              >
-                🛒
-              </button>
-
+            <button className="text-black text-2xl cursor-pointer hover:text-white focus:outline-none mx-3 px-2 py-1 rounded transition-transform duration-300 transform hover:scale-110" type="button">
+              🛒
+            </button>
           </Link>
           <Link to="/Contactus">
             <button className="px-4 md:px-5 py-1.5 md:py-2 border border-black rounded-md hover:bg-black hover:text-white transition cursor-pointer text-sm md:text-base">
@@ -116,35 +116,19 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Dropdown Menu */}
       <div
         className={`md:hidden bg-gray-50 border-t border-gray-200 overflow-y-auto transition-[max-height,opacity] duration-300 ease-in-out ${
-          isMobileMenuOpen ? 'max-h-[calc(100vh-56px)] opacity-100' : 'max-h-0 opacity-0'
+          isMobileMenuOpen ? 'max-h-[calc(100vh-96px)] opacity-100' : 'max-h-0 opacity-0'
         }`}
-        style={{ scrollbarWidth: 'thin', scrollbarColor: '#a0aec0 transparent' }} // Optional scrollbar style
+        style={{ scrollbarWidth: 'thin', scrollbarColor: '#a0aec0 transparent' }}
       >
         <ul className="flex flex-col px-6 py-4 text-gray-700 font-medium space-y-3 text-sm">
-          <li>
-            <NavLink to="/" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'font-semibold' : ''}>
-              Home
-            </NavLink>
-          </li>
+          <li><NavLink to="/" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'font-semibold' : ''}>Home</NavLink></li>
+          <li><NavLink to="/Services" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'font-semibold' : ''}>Arch Services</NavLink></li>
+          <li><NavLink to="/productmodal" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'font-semibold' : ''}>Arch Shop</NavLink></li>
+          <li><NavLink to="/career" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'font-semibold' : ''}>Career</NavLink></li>
 
-          <li>
-            <NavLink to="/Services" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'font-semibold' : ''}>
-              Arch Services
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/productmodal" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'font-semibold' : ''}>
-              Arch Shop
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/career" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'font-semibold' : ''}>
-              Career
-            </NavLink>
-          </li>
           <li>
             <button
               className="w-full text-left flex items-center justify-between focus:outline-none"
@@ -153,9 +137,7 @@ export default function Navbar() {
               aria-expanded={isServicesOpen}
               aria-controls="services-submenu"
             >
-              <span className={isServicesOpen ? 'font-semibold' : ''}>
-                Meet The Team
-              </span>
+              <span className={isServicesOpen ? 'font-semibold' : ''}>Meet The Team</span>
               <svg
                 className={`w-4 h-4 transform transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`}
                 fill="none"
@@ -168,18 +150,13 @@ export default function Navbar() {
             </button>
             {isServicesOpen && (
               <ul id="services-submenu" className="mt-2 ml-4 space-y-2 text-sm">
-                <li>
-                  <NavLink to="/Aboutus" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'font-semibold' : ''}>
-                    About Us
-                  </NavLink>
-                </li>
+                <li><NavLink to="/Aboutus" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'font-semibold' : ''}>About Us</NavLink></li>
               </ul>
             )}
           </li>
+
           <li>
-            <NavLink to="/Contactus" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'font-semibold' : ''}>
-              Contact Us
-            </NavLink>
+            <NavLink to="/Contactus" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'font-semibold' : ''}>Contact Us</NavLink>
           </li>
           <li>
             <Link to="/Contactus">

@@ -21,7 +21,9 @@
   import Preloader from './components/Preloader';
   import Collection from './components/Collection';
   import Productdetail from './components/Productdetail';
-import Cart from './components/Cart';
+  import Cart from './components/Cart';
+  import Login from './components/Login';
+import Forgetpassword from './components/Forgetpassword';
 
 
 
@@ -55,10 +57,12 @@ import Cart from './components/Cart';
             <Route path="/collection" element={<Collection/>}/>
             <Route path="/productdetail" element={<Productdetail/>}/>
             <Route path="/cart" element={<Cart/>}/>
+            <Route path="/login" element={<Login/>}/>
+            <Route path="/forgetpassword" element={<Forgetpassword/>}/>
           </Routes>
           
           <SecondaryFooter/>
-          <Footer/>
+          {/* <Footer/> */}
           </Suspense>
         </Router>
       </div>
