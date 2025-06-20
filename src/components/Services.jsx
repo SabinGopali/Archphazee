@@ -71,7 +71,7 @@ export default function Services() {
     <div className="relative w-full py-20 px-4 overflow-hidden bg-white">
       {/* SEO Tags */}
       <Helmet>
-        <title>Our Services - Archphaze Technologies</title>
+       
         <meta
           name="description"
           content="Explore our range of services including website development, mobile app development, UI/UX design, and API integration. We build modern, scalable, and reliable tech solutions."

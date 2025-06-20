@@ -45,7 +45,7 @@ export default function Testimonial() {
     <section className="bg-white py-20 px-4 lg:px-20">
       {/* SEO Meta Tags */}
       <Helmet>
-        <title>Meet Our Team - Archphaze Technologies</title>
+       
         <meta
           name="description"
           content="Meet the passionate and skilled team behind Archphaze Technologies. From developers to leadership, we deliver innovation and excellence."

@@ -6,7 +6,7 @@ const JoinOurTeam = () => {
   return (
     <>
       <Helmet>
-        <title>Join Our Team - Archphaze Technologies</title>
+        
         <meta
           name="description"
           content="Discover exciting career opportunities at Archphaze Technologies. We're hiring developers, designers, and engineers who are passionate about innovation and growth."

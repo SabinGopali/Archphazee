@@ -45,7 +45,7 @@ export default function Whyus() {
       aria-labelledby="whyus-heading"
     >
       <Helmet>
-        <title>Why Choose Us - Archphaze Technologies</title>
+     
         <meta
           name="description"
           content="Discover why businesses choose Archphaze Technologies for software development, cyber security, and cost-effective IT solutions."

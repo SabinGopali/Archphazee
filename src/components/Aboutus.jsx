@@ -40,7 +40,7 @@ export default function Aboutus() {
   return (
     <section className="bg-white max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-20 py-16">
       <Helmet>
-        <title>About Us - Archphaze Technologies</title>
+        
         <meta
           name="description"
           content="Learn more about Archphaze Technologies—who we are, our mission, and our vision. Discover how we empower businesses with innovative IT solutions."

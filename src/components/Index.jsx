@@ -18,7 +18,7 @@ export default function Index() {
     <>
       {/* Meta Description */}
       <Helmet>
-        <title>Home - Archphaze Technologies</title>
+        <title>Archphaze</title>
         <meta
           name="description"
           content="Archphaze Technologies delivers innovative tech solutions for businesses. Discover our services in web, mobile, and cloud development tailored to your success."
@@ -68,9 +68,7 @@ export default function Index() {
 
       {/* Other Sections */}
       
-        <Services />
-  
-      
+      <Services />
       <Whyus />
       <Testimonial />
     </>
