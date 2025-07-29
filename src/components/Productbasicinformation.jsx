@@ -12,22 +12,24 @@ export default function Productbasicinformation() {
   const navigate = useNavigate();
   const { currentUser } = useSelector(state => state.user);
   
-  // Main form state
+  // Main form state matching the product model
   const [formData, setFormData] = useState({
-    imageUrls: [],
-    name: '',
+    images: [], // Changed from imageUrls to images
+    productName: '', // Changed from name to productName
     description: '',
     brand: '',
     category: "Test FY SOP Category 1",
-    regularPrice: 0,
+    price: 0, // Changed from regularPrice to price
     specialPrice: 0,
     stock: 0,
     sku: '',
     freeItems: '',
     available: true,
-    warrantyType: '',
-    warrantyPeriod: '',
-    warrantyPolicy: '',
+    warranty: {
+      type: 'No',
+      period: '',
+      policy: ''
+    },
     variants: []
   });
 
@@ -70,7 +72,7 @@ export default function Productbasicinformation() {
 
   // Handle image upload to Firebase
   const handleImageSubmit = (e) => {
-    if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
+    if (files.length > 0 && files.length + formData.images.length < 7) {
       setUploading(true);
       setImageUploadError(false);
       const promises = [];
@@ -83,7 +85,7 @@ export default function Productbasicinformation() {
         .then((urls) => {
           setFormData(prev => ({ 
             ...prev, 
-            imageUrls: prev.imageUrls.concat(urls) 
+            images: prev.images.concat(urls) 
           }));
           setImageUploadError(false);
           setUploading(false);
@@ -127,7 +129,7 @@ export default function Productbasicinformation() {
   const handleRemoveImage = (index) => {
     setFormData(prev => ({
       ...prev, 
-      imageUrls: prev.imageUrls.filter((_, i) => i !== index)
+      images: prev.images.filter((_, i) => i !== index)
     }));
   };
 
@@ -196,12 +198,23 @@ export default function Productbasicinformation() {
     }
   };
 
+  // Handle warranty fields separately
+  const handleWarrantyChange = (field, value) => {
+    setFormData(prev => ({
+      ...prev,
+      warranty: {
+        ...prev.warranty,
+        [field]: value
+      }
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     try {
       // Validation
-      if (formData.imageUrls.length < 1 && files.length < 1) {
+      if (formData.images.length < 1 && files.length < 1) {
         return setError('You must upload at least one image');
       }
       
@@ -209,13 +222,22 @@ export default function Productbasicinformation() {
         return setError("Please enter a product description.");
       }
       
-      if (!formData.name.trim()) {
+      if (!formData.productName.trim()) {
         return setError("Please enter a product name.");
+      }
+
+      if (!formData.brand) {
+        return setError("Please select a brand.");
+      }
+
+      if (formData.price <= 0) {
+        return setError("Please enter a valid price.");
       }
 
       // Upload any pending files first
       if (files.length > 0) {
         await handleImageSubmit();
+        return; // Wait for upload to complete, then user can submit again
       }
 
       setLoading(true);
@@ -229,6 +251,7 @@ export default function Productbasicinformation() {
         body: JSON.stringify({
           ...formData,
           userRef: currentUser._id,
+          userMail: currentUser.email, // Add userMail as required by model
         }),
       });
 
@@ -238,7 +261,10 @@ export default function Productbasicinformation() {
       if (data.success === false) {
         setError(data.message);
       } else {
-        navigate(`/listing/${data._id}`);
+        // Navigate to products page or show success message
+        alert("Product created successfully!");
+        // You can navigate to a products list page or reset the form
+        // navigate('/products');
       }
     } catch (error) {
       setError(error.message);
@@ -317,10 +343,10 @@ export default function Productbasicinformation() {
                   </label>
                   <input
                     type="text"
-                    id="name"
+                    id="productName"
                     className="w-full border border-gray-300 rounded-md p-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition"
                     placeholder="Enter product name"
-                    value={formData.name}
+                    value={formData.productName}
                     onChange={handleChange}
                     required
                   />
@@ -400,9 +426,9 @@ export default function Productbasicinformation() {
                     )}
 
                     {/* Display uploaded images from Firebase */}
-                    {formData.imageUrls.length > 0 && (
+                    {formData.images.length > 0 && (
                       <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 w-full">
-                        {formData.imageUrls.map((url, idx) => (
+                        {formData.images.map((url, idx) => (
                           <div
                             key={idx}
                             className="relative w-full h-28 rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition"
@@ -549,8 +575,8 @@ export default function Productbasicinformation() {
                     </label>
                     <input
                       type="number"
-                      id="regularPrice"
-                      value={formData.regularPrice}
+                      id="price"
+                      value={formData.price}
                       onChange={handleChange}
                       className="w-full border border-gray-300 p-3 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition"
                       placeholder="Rs."
@@ -643,15 +669,13 @@ export default function Productbasicinformation() {
                       Warranty Type
                     </label>
                     <select
-                      id="warrantyType"
                       className="w-full border border-gray-300 p-3 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition"
-                      value={formData.warrantyType}
-                      onChange={handleChange}
+                      value={formData.warranty.type}
+                      onChange={(e) => handleWarrantyChange('type', e.target.value)}
                     >
-                      <option value="">Select</option>
+                      <option value="No">No Warranty</option>
                       <option value="Manufacturer">Manufacturer Warranty</option>
                       <option value="Seller">Seller Warranty</option>
-                      <option value="No">No Warranty</option>
                     </select>
                   </div>
 
@@ -661,11 +685,10 @@ export default function Productbasicinformation() {
                     </label>
                     <input
                       type="text"
-                      id="warrantyPeriod"
                       className="w-full border border-gray-300 p-3 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition"
                       placeholder="e.g. 6 months, 1 year"
-                      value={formData.warrantyPeriod}
-                      onChange={handleChange}
+                      value={formData.warranty.period}
+                      onChange={(e) => handleWarrantyChange('period', e.target.value)}
                     />
                   </div>
 
@@ -674,12 +697,11 @@ export default function Productbasicinformation() {
                       Warranty Policy
                     </label>
                     <textarea
-                      id="warrantyPolicy"
                       className="w-full border border-gray-300 p-3 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition resize-none"
                       rows={4}
                       placeholder="Describe warranty coverage and claim instructions"
-                      value={formData.warrantyPolicy}
-                      onChange={handleChange}
+                      value={formData.warranty.policy}
+                      onChange={(e) => handleWarrantyChange('policy', e.target.value)}
                     />
                   </div>
                 </div>
@@ -689,10 +711,10 @@ export default function Productbasicinformation() {
               <div className="flex justify-end gap-5 mt-10">
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={loading || files.length > 0}
                   className="px-8 py-3 rounded-md bg-white text-black font-semibold border border-black hover:bg-black hover:text-white transition shadow-lg disabled:bg-gray-400 disabled:border-gray-400"
                 >
-                  {loading ? 'Submitting...' : 'Submit'}
+                  {loading ? 'Submitting...' : files.length > 0 ? 'Upload Images First' : 'Submit'}
                 </button>
               </div>
             </form>
