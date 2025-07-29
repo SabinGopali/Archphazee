@@ -62,8 +62,21 @@ export default function Updateproduct() {
       return imagePath;
     }
     
+    // For local backend files
+    if (imagePath.startsWith('uploads/')) {
+      return `http://localhost:3000/${imagePath}`;
+    }
+    
     // Replace backslashes with forward slashes and construct proper URL
     let cleanPath = imagePath.replace(/\\/g, "/");
+    
+    // Handle paths that might start with 'Backend/' or similar
+    if (cleanPath.includes('uploads/')) {
+      const uploadsIndex = cleanPath.indexOf('uploads/');
+      cleanPath = cleanPath.substring(uploadsIndex);
+      return `http://localhost:3000/${cleanPath}`;
+    }
+    
     // Remove leading slash if present to avoid double slashes
     cleanPath = cleanPath.startsWith('/') ? cleanPath.slice(1) : cleanPath;
     return `http://localhost:3000/${cleanPath}`;
@@ -76,11 +89,26 @@ export default function Updateproduct() {
       
       try {
         setFetchLoading(true);
+        console.log(`Fetching product data for ID: ${id}`);
+        
         const response = await fetch(`/backend/product/get/${id}`);
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
+        
+        // Check if response is actually JSON
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          const textResponse = await response.text();
+          console.error('Non-JSON response received:', textResponse);
+          setError(`Server returned non-JSON response. Status: ${response.status}`);
+          return;
+        }
+        
         const data = await response.json();
+        console.log('Fetched product data:', data);
         
         if (!response.ok) {
-          setError(data.error || "Failed to fetch product data");
+          setError(data.error || `Failed to fetch product data. Status: ${response.status}`);
           return;
         }
 
@@ -147,8 +175,8 @@ export default function Updateproduct() {
         }
 
       } catch (err) {
-        setError(err.message || "Failed to fetch product data");
         console.error("Error fetching product data:", err);
+        setError(`Failed to fetch product data: ${err.message}`);
       } finally {
         setFetchLoading(false);
       }
@@ -363,16 +391,35 @@ export default function Updateproduct() {
       body.append("userRef", currentUser._id);
       body.append("userMail", currentUser.email);
 
+      console.log('Submitting update for product ID:', id);
+      console.log('Form data entries:');
+      for (let [key, value] of body.entries()) {
+        console.log(`${key}:`, value);
+      }
+
       const res = await fetch(`/backend/product/update/${id}`, {
         method: "PUT",
         body,
       });
 
+      console.log('Update response status:', res.status);
+      console.log('Update response headers:', res.headers);
+
+      // Check if response is actually JSON
+      const contentType = res.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const textResponse = await res.text();
+        console.error('Non-JSON update response received:', textResponse);
+        setLoading(false);
+        return setError(`Server returned non-JSON response. Status: ${res.status}. Check console for details.`);
+      }
+
       const data = await res.json();
+      console.log('Update response data:', data);
       setLoading(false);
 
       if (!res.ok) {
-        return setError(data.error || "Failed to update product.");
+        return setError(data.error || `Failed to update product. Status: ${res.status}`);
       }
 
       // Clean up object URLs
@@ -388,8 +435,9 @@ export default function Updateproduct() {
       alert("Product updated successfully!");
       navigate("/manageproduct");
     } catch (err) {
+      console.error("Error updating product:", err);
       setLoading(false);
-      setError(err.message || "Something went wrong.");
+      setError(`Failed to update product: ${err.message}`);
     }
   };
 
