@@ -12,7 +12,7 @@ export default function Productbasicinformation() {
   const navigate = useNavigate();
   const { currentUser } = useSelector(state => state.user);
   
-  // Main form state matching the product model
+  // Main form state matching the product model exactly
   const [formData, setFormData] = useState({
     images: [], // Changed from imageUrls to images
     productName: '', // Changed from name to productName
@@ -26,7 +26,7 @@ export default function Productbasicinformation() {
     freeItems: '',
     available: true,
     warranty: {
-      type: 'No',
+      type: 'No', // Default to 'No' as per model enum
       period: '',
       policy: ''
     },
@@ -261,10 +261,8 @@ export default function Productbasicinformation() {
       if (data.success === false) {
         setError(data.message);
       } else {
-        // Navigate to products page or show success message
-        alert("Product created successfully!");
-        // You can navigate to a products list page or reset the form
-        // navigate('/products');
+        // Navigate to manage products page
+        navigate(`/manageproduct`);
       }
     } catch (error) {
       setError(error.message);
