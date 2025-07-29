@@ -71,33 +71,35 @@ export default function Productbasicinformation() {
   }, [editor]);
 
   // Handle image upload to Firebase
-  const handleImageSubmit = (e) => {
-    if (files.length > 0 && files.length + formData.images.length < 7) {
-      setUploading(true);
-      setImageUploadError(false);
-      const promises = [];
+  const handleImageSubmit = async () => {
+    if (files.length === 0) return;
+    
+    if (files.length + formData.images.length > 6) {
+      setImageUploadError('You can only upload 6 images total');
+      return false;
+    }
 
-      for (let i = 0; i < files.length; i++) {
-        promises.push(storeImage(files[i]));
-      }
-      
-      Promise.all(promises)
-        .then((urls) => {
-          setFormData(prev => ({ 
-            ...prev, 
-            images: prev.images.concat(urls) 
-          }));
-          setImageUploadError(false);
-          setUploading(false);
-          setFiles([]);
-        })
-        .catch((err) => {
-          setImageUploadError('Image upload failed (2 MB max per image)');
-          setUploading(false);
-        });
-    } else {
-      setImageUploadError('You can only upload 6 images');
+    setUploading(true);
+    setImageUploadError(false);
+    const promises = [];
+
+    for (let i = 0; i < files.length; i++) {
+      promises.push(storeImage(files[i]));
+    }
+    
+    try {
+      const urls = await Promise.all(promises);
+      setFormData(prev => ({ 
+        ...prev, 
+        images: prev.images.concat(urls) 
+      }));
+      setFiles([]);
       setUploading(false);
+      return true;
+    } catch (err) {
+      setImageUploadError('Image upload failed (2 MB max per image)');
+      setUploading(false);
+      return false;
     }
   };
 
@@ -234,24 +236,43 @@ export default function Productbasicinformation() {
         return setError("Please enter a valid price.");
       }
 
-      // Upload any pending files first
-      if (files.length > 0) {
-        await handleImageSubmit();
-        return; // Wait for upload to complete, then user can submit again
-      }
-
       setLoading(true);
       setError("");
-      
+
+      let imagesToSubmit = [...formData.images];
+
+      // Upload any pending files first
+      if (files.length > 0) {
+        try {
+          setUploading(true);
+          const uploadPromises = files.map(file => storeImage(file));
+          const uploadedUrls = await Promise.all(uploadPromises);
+          imagesToSubmit = [...formData.images, ...uploadedUrls];
+          setFiles([]); // Clear files after successful upload
+          setUploading(false);
+        } catch (uploadError) {
+          setUploading(false);
+          setLoading(false);
+          return setError('Failed to upload images. Please try again.');
+        }
+      }
+
+      const finalFormData = {
+        ...formData,
+        images: imagesToSubmit
+      };
+
+      console.log('Submitting data:', finalFormData); // Debug log
+
       const res = await fetch('/backend/product/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          ...formData,
+          ...finalFormData,
           userRef: currentUser._id,
-          userMail: currentUser.email, // Add userMail as required by model
+          userMail: currentUser.email,
         }),
       });
 
@@ -261,12 +282,13 @@ export default function Productbasicinformation() {
       if (data.success === false) {
         setError(data.message);
       } else {
-        // Navigate to manage products page
-        navigate(`/manageproduct`);
+        alert("Product created successfully!");
+        navigate('/manageproduct');
       }
     } catch (error) {
       setError(error.message);
       setLoading(false);
+      setUploading(false);
     }
   };
 
@@ -451,14 +473,19 @@ export default function Productbasicinformation() {
 
                     {/* Upload Button for files */}
                     {files.length > 0 && (
-                      <button
-                        type="button"
-                        onClick={handleImageSubmit}
-                        disabled={uploading}
-                        className="mt-4 px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 disabled:bg-gray-400 transition"
-                      >
-                        {uploading ? 'Uploading...' : 'Upload Images'}
-                      </button>
+                      <div className="mt-4 flex flex-col items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={handleImageSubmit}
+                          disabled={uploading}
+                          className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 disabled:bg-gray-400 transition"
+                        >
+                          {uploading ? 'Uploading...' : 'Upload Images Now (Optional)'}
+                        </button>
+                        <p className="text-xs text-gray-500 text-center">
+                          You can upload now or images will be uploaded when you submit the form
+                        </p>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -709,10 +736,10 @@ export default function Productbasicinformation() {
               <div className="flex justify-end gap-5 mt-10">
                 <button
                   type="submit"
-                  disabled={loading || files.length > 0}
+                  disabled={loading || uploading}
                   className="px-8 py-3 rounded-md bg-white text-black font-semibold border border-black hover:bg-black hover:text-white transition shadow-lg disabled:bg-gray-400 disabled:border-gray-400"
                 >
-                  {loading ? 'Submitting...' : files.length > 0 ? 'Upload Images First' : 'Submit'}
+                  {uploading ? 'Uploading Images...' : loading ? 'Submitting...' : 'Submit'}
                 </button>
               </div>
             </form>
